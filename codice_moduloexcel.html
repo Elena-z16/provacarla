@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Dinamico</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        form {
+            max-width: 500px;
+            margin: auto;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        select, input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+    </style>
+    <script>
+        function aggiornaAssociazioni() {
+            const container = document.getElementById('associazioniContainer');
+            container.innerHTML = '';
+            const numeroAssociazioni = parseInt(document.getElementById('numeroAssociazioni').value, 10);
+
+            // Crea un campo di input per ogni associazione
+            for (let i = 1; i <= numeroAssociazioni; i++) {
+                const div = document.createElement('div');
+                div.className = 'form-group';
+                const label = document.createElement('label');
+                label.textContent = `Nome associazione ${i}:`;
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.name = `associazione${i}`; // Nome del campo per ciascuna associazione
+                input.placeholder = `Inserisci il nome dell'associazione ${i}`;
+                input.required = true; // Rende obbligatorio il campo
+                div.appendChild(label);
+                div.appendChild(input);
+                container.appendChild(div);
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Modulo di Inserimento Dati</h1>
+    <form action="https://script.google.com/macros/s/AKfycbw8uupVH0L__97W31S6GTZA2cyqF5hGyNU6OQ3YdaRx/dev" method="POST">
+        <div class="form-group">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" placeholder="Inserisci il tuo nome" required>
+        </div>
+        <div class="form-group">
+            <label for="cognome">Cognome:</label>
+            <input type="text" id="cognome" name="cognome" placeholder="Inserisci il tuo cognome" required>
+        </div>
+        <div class="form-group">
+            <label for="sesso">Sesso:</label>
+            <select id="sesso" name="sesso" required>
+                <option value="">Seleziona</option>
+                <option value="maschio">Maschio</option>
+                <option value="femmina">Femmina</option>
+                <option value="altro">Altro</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="numeroAssociazioni">Quante associazioni sostieni?</label>
+            <select id="numeroAssociazioni" name="numeroAssociazioni" onchange="aggiornaAssociazioni()" required>
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </div>
+        <div id="associazioniContainer"></div> <!-- Contenitore per i nomi delle associazioni -->
+        <button type="submit">Invia</button>
+    </form>
+</body>
+</html>
